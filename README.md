@@ -1,9 +1,9 @@
-# Apache Kafka 
-
+# Common Usage Patterns of Apache Kafka
 
 
 <br>
-This repository contains some basic patterns related to usage of Apache Kafka. 
+Apache Kafka is an open-source stream processing platform known for handling large volumes of data with high throughput and low latency. It operates on Pub-Sub model and is suitable for building real-time pipelines and streaming applications. This repository contains some basic patterns related to usage of Apache Kafka. 
+
 <br>
 <br>
 
@@ -13,6 +13,8 @@ This repository contains some basic patterns related to usage of Apache Kafka.
 
 ### Pattern 1: Topic with a single partition and a single Consumer
 
+This is the simplest possible use of Kafka. The producer receives messages from any source, and creates a time-ordered log with the received messages. In this case the single consumer will receive messages from the partition and process it. 
+
 ![Single Partition-Single Consumer](img/SinglePartition_SingleConsumer.gif)
 
 
@@ -21,12 +23,16 @@ This repository contains some basic patterns related to usage of Apache Kafka.
 
 ### Pattern 2: Topic with a single partition and multiple consumers
 
+If different business units need to process a given message differently, they can create their own consumers. All consumers subscribed to the topic will reeive all messages.
 ![Single Partition- Multiple Consumers](img/SinglePartition_MultipleConsumers.gif)
 
 
 <br>
 
 ### Pattern 3: Topic with a single partition and single consumer group
+
+Consumers can join a 'Consumer Group'. When multiple consumers are within a group, load is distributed across the members of the group. However, when there is a single partition for a given topic, all messages from the topic will be read a single member of the consumer group. 
+The default 'Message Key' for kafka messages is Null. Kafka Producer puts messages with same key to same partition. Null is treated as a valid key.   
 
 ![Single Partition - Single Consumer Group](img/SinglePartition_SingleConsumerGroup.gif)
 
@@ -35,12 +41,15 @@ This repository contains some basic patterns related to usage of Apache Kafka.
 
 ### Pattern 4: Topic with a single partition and multiple consumer groups
 
+Messages will be forwarded to all consumer groups from the single partition. Each consumer group will the same behavior as described in Pattern 3 above. 
 ![Single Partition - Multiple Consumer Groups](img/SinglePartition_MultipleConsumerGroups.gif)
 
 
 <br>
 
 ### Pattern 5: Topic with multiple partitions and a single consumer
+
+Even though the topic has multiple partitions in this case, all messages will still end up in the same parition. The reason is default message key 'Null'. 
 
 ![Multiple Partitions - Single Consumer](img/MultiplePartitions_SingleConsumer.gif)
 
