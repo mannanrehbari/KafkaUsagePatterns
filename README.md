@@ -73,13 +73,19 @@ Multiple consumers within a consumer group CANNOT read from a single partition. 
 <br>
 
 ### Pattern 8: Topic with multiple partitions and multiple consumer groups
+In this case, we have 2 consumer groups. Consumer-group1 has two members and Consumer-group-2 has a single member. Within group 1, only Consumer-B is receiving all the messages. The reason is same as I described in previous patterns: consumers WITHIN a group read from specific partitions exclusively.
 
+Within the second group, there is only a single consumer so it will receive all the messages on behalf of the group.
 ![Multiple Partitions - Multiple Consumer Groups](img/MultiplePartitions_MultipleConsumerGroups.gif)
 
 
 <br>
 
 ### Pattern 9: Topic with multiple partitions, messages with distinct keys, and a single consumer
+In this pattern, we are assigning distinct keys to Kafka messages. Distinct keys are color coded in this GIF. Kafka producer guarantees that messages with same key will be appended to the same partition.
+However, it is also possible that each partition will have messages with different keys. But it is not possible that a new message with Blue Key will be appended to a different partition after the first blue message is added to partition-0.
+
+There is only a single consumer in this example so it will read messages from all the partitions. 
 
 ![Message with distinct keys](img/Messages_Distinct_Keys.gif)
 
@@ -87,10 +93,16 @@ Multiple consumers within a consumer group CANNOT read from a single partition. 
 <br>
 
 ### Pattern 10: Topic with multiple partitions, messages with distinct keys, and multiple consumers
+
+When messages are distributed across partitions, and there are consumers which are NOT part of a consumer group, they will receive all messages from all partitions. The messages are usually read from partition as soon as they are appended. It is possible to play with consumer offsets to change this behavior. 
+
 ![Messages with distinct keys, multiple consumers](img/MessagesDistinctKeys_MultipleConsumers.gif)
 
 
 <br>
 
 ### Pattern 11: Topic with multiple partitions, messages with distinct keys, and a single consumer group
+
+When consumers are part of a group, they will load balance from different partitions. Each member of the consumer group will read from 1 or more partitions. However, each partition will be exclusively read by a specific consumer. 
+
 ![Messages with distinct keys, single consumer group](img/MessagesDistinctKeys_SingleConsumerGroup.gif)
