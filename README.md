@@ -2,7 +2,7 @@
 
 
 <br>
-Apache Kafka is an open-source stream processing platform known for handling large volumes of data with high throughput and low latency. It operates on Pub-Sub model and is suitable for building real-time pipelines and streaming applications. This repository contains some basic patterns related to usage of Apache Kafka. 
+Apache Kafka is an open-source stream processing platform known for handling large volumes of data with high throughput and low latency. It operates on Pub-Sub model and is suitable for building real-time pipelines and streaming applications. This repository contains some basic patterns related to usage of Apache Kafka. I created some animated GIFs for these patterns since it can a bit complex to visualize from sources such as text, code, and even static images. This repository will evolve as I explore Kafka in more detail. 
 
 <br>
 <br>
@@ -58,12 +58,15 @@ Even though the topic has multiple partitions in this case, all messages will st
 
 ### Pattern 6: Topic with multiple partitions and multiple consumers
 
+Since the message key is still not specified, Producer will append the message to a single partition.
+Each subscribing consumer will receive a copy of the message from the broker. 
+
 ![Multiple Partitions - Multiple Consumers](img/MultiplePartitions_MultipleConsumers.gif)
 
 <br>
 
 ### Pattern 7: Topic with multiple partitions and single consumer group
-
+Multiple consumers within a consumer group CANNOT read from a single partition. However, the reverse is possible. A given consumer CAN read from multiple partitions. 
 ![Multiple Partitions - Single Consumer Group](img/MultiplePartitions_SingleConsumerGroup.gif)
 
 
