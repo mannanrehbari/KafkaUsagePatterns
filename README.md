@@ -19,6 +19,11 @@ This is the simplest possible use of Kafka. The producer receives messages from 
 
 
 <br>
+<br>
+
+---
+
+<br>
 
 
 ### Pattern 2: Topic with a single partition and multiple consumers
@@ -26,6 +31,11 @@ This is the simplest possible use of Kafka. The producer receives messages from 
 If different business units need to process a given message differently, they can create their own consumers. All consumers subscribed to the topic will reeive all messages.
 ![Single Partition- Multiple Consumers](img/SinglePartition_MultipleConsumers.gif)
 
+
+<br>
+<br>
+
+---
 
 <br>
 
@@ -38,12 +48,22 @@ The default 'Message Key' for kafka messages is Null. Kafka Producer puts messag
 
 
 <br>
+<br>
+
+---
+
+<br>
 
 ### Pattern 4: Topic with a single partition and multiple consumer groups
 
 Messages will be forwarded to all consumer groups from the single partition. Each consumer group will the same behavior as described in Pattern 3 above. 
 ![Single Partition - Multiple Consumer Groups](img/SinglePartition_MultipleConsumerGroups.gif)
 
+
+<br>
+<br>
+
+---
 
 <br>
 
@@ -55,6 +75,11 @@ Even though the topic has multiple partitions in this case, all messages will st
 
 
 <br>
+<br>
+
+---
+
+<br>
 
 ### Pattern 6: Topic with multiple partitions and multiple consumers
 
@@ -64,11 +89,21 @@ Each subscribing consumer will receive a copy of the message from the broker.
 ![Multiple Partitions - Multiple Consumers](img/MultiplePartitions_MultipleConsumers.gif)
 
 <br>
+<br>
+
+---
+
+<br>
 
 ### Pattern 7: Topic with multiple partitions and single consumer group
 Multiple consumers within a consumer group CANNOT read from a single partition. However, the reverse is possible. A given consumer CAN read from multiple partitions. 
 ![Multiple Partitions - Single Consumer Group](img/MultiplePartitions_SingleConsumerGroup.gif)
 
+
+<br>
+<br>
+
+---
 
 <br>
 
@@ -78,6 +113,11 @@ In this case, we have 2 consumer groups. Consumer-group1 has two members and Con
 Within the second group, there is only a single consumer so it will receive all the messages on behalf of the group.
 ![Multiple Partitions - Multiple Consumer Groups](img/MultiplePartitions_MultipleConsumerGroups.gif)
 
+
+<br>
+<br>
+
+---
 
 <br>
 
@@ -91,6 +131,11 @@ There is only a single consumer in this example so it will read messages from al
 
 
 <br>
+<br>
+
+---
+
+<br>
 
 ### Pattern 10: Topic with multiple partitions, messages with distinct keys, and multiple consumers
 
@@ -100,9 +145,14 @@ When messages are distributed across partitions, and there are consumers which a
 
 
 <br>
+<br>
+
+---
+
+<br>
 
 ### Pattern 11: Topic with multiple partitions, messages with distinct keys, and a single consumer group
 
-When consumers are part of a group, they will load balance from different partitions. Each member of the consumer group will read from 1 or more partitions. However, each partition will be exclusively read by a specific consumer. 
+When consumers are part of a group, they will load balance from different partitions. Each member of the consumer group will read from 1 or more partitions. However, each partition will be read exclusively by a specific consumer. 
 
 ![Messages with distinct keys, single consumer group](img/MessagesDistinctKeys_SingleConsumerGroup.gif)
